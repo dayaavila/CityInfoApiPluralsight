@@ -1,4 +1,5 @@
 ﻿using CityInfoAPI.Models;
+using CityInfoAPI.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,13 +16,14 @@ namespace CityInfoAPI.Controllers
     public class PointsOfInterestController : ControllerBase
     {
         private readonly ILogger<PointsOfInterestController> _logger;
-        //private readonly IMailService _mailService;
+        //private readonly LocalMailService _mailService;
+        private readonly IMailService _mailService;
 
-        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)//,
-                                                                                     //IMailService mailService)
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger,
+               IMailService mailService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            // _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
+            _mailService = mailService ?? throw new ArgumentNullException(nameof(mailService));
         }
 
         [HttpGet]
@@ -29,7 +31,7 @@ namespace CityInfoAPI.Controllers
         {
             try
             {
-                throw new Exception("Exception example.");
+                //throw new Exception("Exception example.");
 
                 var city = CitiesDataStore.Current.Cities
                     .FirstOrDefault(c => c.Id == cityId);
@@ -97,11 +99,9 @@ namespace CityInfoAPI.Controllers
                     "The provided description should be different from the name");
             }
 
-
-            //tambien debemos chequear que estas reglas de arriba estan aderidas, donde el ModelState entra en juego 
             //ModelState es una propiedad valida que sera falsa, ademas de ser falsa si un valor invalido para una propiedad type es pasada, 
             //es una gran propiedad para chequear y ver si podemos continuar con nuestra action.
-            //una vez mas gracias al atributo ApiController no necesitamos escribir codigocomo este, cuando un ModelState es invalido, un respuesta es automaticamente sera retornada. 
+            //gracias al atributo ApiController no necesitamos escribir codigocomo este, cuando un ModelState es invalido, un respuesta es automaticamente sera retornada. 
             //asi que lo borramos
             //if (!ModelState.IsValid)
             //{
@@ -260,6 +260,8 @@ namespace CityInfoAPI.Controllers
 
             city.PointsOfInterest.Remove(pointOfInterestFromStore);
 
+            _mailService.Send("Point of interest deleted.",
+                    $"Point of interest {pointOfInterestFromStore.Name} with id {pointOfInterestFromStore.Id} was deleted.");
             return NoContent();
         }
     }

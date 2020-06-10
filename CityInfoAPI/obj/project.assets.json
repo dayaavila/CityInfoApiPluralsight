@@ -12650,11 +12650,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dayaa\\C#\\CityInfo\\CityInfoAPI\\CityInfoAPI.csproj",
+      "projectUniqueName": "C:\\Repo\\CityInfoApiPluralsight\\CityInfoAPI\\CityInfoAPI.csproj",
       "projectName": "CityInfoAPI",
-      "projectPath": "C:\\Users\\dayaa\\C#\\CityInfo\\CityInfoAPI\\CityInfoAPI.csproj",
+      "projectPath": "C:\\Repo\\CityInfoApiPluralsight\\CityInfoAPI\\CityInfoAPI.csproj",
       "packagesPath": "C:\\Users\\dayaa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dayaa\\C#\\CityInfo\\CityInfoAPI\\obj\\",
+      "outputPath": "C:\\Repo\\CityInfoApiPluralsight\\CityInfoAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
